@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Автосервис «Пример» — ремонт и ТО за один день, Москва</title>
+<meta name="description" content="Ремонт и техобслуживание автомобиля за один день. Диагностика бесплатно при ремонте у нас, фиксированная смета до начала работ, гарантия 12 месяцев.">
+<meta property="og:title" content="Автосервис «Пример» — машина готова в тот же день">
+<meta property="og:description" content="Фиксированная смета до начала работ. Гарантия 12 месяцев. Диагностика бесплатно.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🔧</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#12161c; --ink2:#4a5464; --ink3:#8b95a5;
+  --bg:#ffffff; --bg2:#f4f6f9; --line:#e2e7ee;
+  --acc:#e8532c; --acc-d:#c8401d; --ok:#1c8c5e;
+  --r:14px; --pad:clamp(18px,4vw,28px);
+  --wrap:1140px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+h1,h2,h3{line-height:1.15;letter-spacing:-.02em;margin:0 0 14px}
+h1{font-size:clamp(30px,5.2vw,50px);font-weight:800}
+h2{font-size:clamp(24px,3.6vw,36px);font-weight:800}
+h3{font-size:19px;font-weight:800}
+p{margin:0 0 14px}
+section{padding:clamp(48px,7vw,86px) 0}
+.lead{font-size:clamp(16px,2vw,19px);color:var(--ink2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  background:var(--acc);color:#fff;border:0;border-radius:11px;cursor:pointer;
+  padding:15px 30px;font:inherit;font-weight:800;font-size:16px;text-decoration:none;
+  transition:background .15s, transform .1s}
+.btn:hover{background:var(--acc-d)}
+.btn:active{transform:translateY(1px)}
+.btn--ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn--ghost:hover{background:var(--bg2);border-color:var(--ink3)}
+.btn--wide{width:100%}
+
+/* ===== ШАПКА ===== */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.93);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:20px;height:66px}
+.logo{font-weight:800;font-size:19px;letter-spacing:-.02em;white-space:nowrap}
+.logo span{color:var(--acc)}
+header nav{display:flex;gap:22px;margin-left:auto}
+header nav a{color:var(--ink2);text-decoration:none;font-size:15px;font-weight:600}
+header nav a:hover{color:var(--acc)}
+.tel{font-weight:800;color:var(--ink);text-decoration:none;white-space:nowrap}
+@media(max-width:900px){header nav{display:none}.tel{margin-left:auto}}
+
+/* ===== ПЕРВЫЙ ЭКРАН ===== */
+.hero{background:linear-gradient(180deg,#f7f9fc,#fff);border-bottom:1px solid var(--line)}
+.hero .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
+.hero .badge{display:inline-block;background:#fff;border:1px solid var(--line);
+  border-radius:30px;padding:6px 15px;font-size:13.5px;font-weight:700;color:var(--ink2);margin-bottom:18px}
+.hero .badge b{color:var(--ok)}
+.trust{display:flex;gap:26px;flex-wrap:wrap;margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.trust div b{display:block;font-size:26px;font-weight:800;letter-spacing:-.02em}
+.trust div span{font-size:13.5px;color:var(--ink3)}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+@media(max-width:880px){.hero .grid{grid-template-columns:1fr;gap:30px}}
+
+/* карточка формы */
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:26px;box-shadow:0 10px 34px rgba(18,22,28,.07)}
+.card h3{margin-bottom:4px}
+.card .note{font-size:13.5px;color:var(--ink3);margin-bottom:18px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--ink2);margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;padding:13px 14px;border:1.5px solid var(--line);
+  border-radius:10px;font:inherit;font-size:15.5px;background:#fff;transition:border-color .15s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:0;border-color:var(--acc)}
+.field .err{color:var(--acc-d);font-size:12.5px;margin-top:4px;display:none}
+.field.bad input{border-color:var(--acc-d)}
+.field.bad .err{display:block}
+.agree{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--ink3);margin:12px 0 16px}
+.agree input{margin-top:3px;width:16px;height:16px;accent-color:var(--acc);flex:0 0 auto}
+.agree a{color:var(--ink2)}
+.thanks{display:none;text-align:center;padding:26px 6px}
+.thanks .ic{font-size:44px;line-height:1}
+.thanks h3{color:var(--ok);margin:10px 0 6px}
+
+/* ===== БОЛИ ===== */
+.pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:30px}
+.pain{background:var(--bg2);border-radius:var(--r);padding:22px}
+.pain .q{font-size:15.5px;font-style:italic;color:var(--ink2);margin-bottom:12px;
+  padding-left:14px;border-left:3px solid var(--line)}
+.pain .a{font-weight:700;font-size:15.5px}
+.pain .a:before{content:"→ ";color:var(--acc)}
+
+/* ===== ШАГИ ===== */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:18px;margin-top:32px;counter-reset:s}
+.step{position:relative;padding-top:44px}
+.step:before{counter-increment:s;content:counter(s);position:absolute;top:0;left:0;
+  width:34px;height:34px;border-radius:50%;background:var(--acc);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
+.step p{font-size:15px;color:var(--ink2);margin:0}
+
+/* ===== ЦЕНЫ ===== */
+.prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:30px}
+.price{border:1.5px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column}
+.price.hot{border-color:var(--acc);position:relative}
+.price.hot:after{content:"чаще всего берут";position:absolute;top:-11px;left:22px;background:var(--acc);
+  color:#fff;font-size:11.5px;font-weight:800;padding:3px 11px;border-radius:20px;letter-spacing:.02em}
+.price .v{font-size:31px;font-weight:800;letter-spacing:-.02em;margin:6px 0 4px}
+.price .v small{font-size:15px;font-weight:600;color:var(--ink3)}
+.price ul{list-style:none;padding:0;margin:14px 0 20px;font-size:15px;color:var(--ink2)}
+.price li{padding:5px 0 5px 24px;position:relative}
+.price li:before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+.price .btn{margin-top:auto}
+.pricenote{font-size:14px;color:var(--ink3);margin-top:18px}
+
+/* ===== ОТЗЫВЫ ===== */
+.revs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:30px}
+.rev{background:var(--bg2);border-radius:var(--r);padding:24px}
+.rev .stars{color:#f5a623;letter-spacing:2px;margin-bottom:10px}
+.rev p{font-size:15.5px}
+.rev .who{font-size:13.5px;color:var(--ink3);margin:0}
+.rev .who b{color:var(--ink);display:block;font-size:14.5px}
+
+/* ===== FAQ ===== */
+.faq{margin-top:28px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:18px 40px 18px 0;font-weight:700;font-size:16.5px;
+  list-style:none;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";position:absolute;right:6px;top:15px;font-size:24px;
+  font-weight:400;color:var(--acc);transition:transform .2s}
+.faq details[open] summary:after{transform:rotate(45deg)}
+.faq .ans{padding:0 0 18px;color:var(--ink2);font-size:15.5px}
+
+/* ===== ФИНАЛЬНАЯ ФОРМА ===== */
+.final{background:var(--ink);color:#fff}
+.final h2{color:#fff}
+.final .lead{color:#b6c0cf}
+.final .grid{display:grid;grid-template-columns:1fr 420px;gap:44px;align-items:center}
+@media(max-width:880px){.final .grid{grid-template-columns:1fr;gap:28px}}
+.final .card{background:#fff;color:var(--ink)}
+
+/* ===== ПОДВАЛ ===== */
+footer{background:#0c1015;color:#8b95a5;font-size:14px;padding:38px 0}
+footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
+footer a{color:#b6c0cf;text-decoration:none}
+footer a:hover{color:#fff}
+footer .small{margin-top:26px;padding-top:20px;border-top:1px solid #1e242d;font-size:12.5px;color:#5b6472}
+
+/* плавающая кнопка на мобильном */
+.sticky-cta{display:none}
+@media(max-width:700px){
+  .sticky-cta{display:block;position:fixed;left:12px;right:12px;bottom:12px;z-index:60}
+  .sticky-cta .btn{box-shadow:0 8px 26px rgba(232,83,44,.42)}
+  body{padding-bottom:74px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">Автосервис <span>«Пример»</span></div>
+    <nav>
+      <a href="#how">Как работаем</a>
+      <a href="#prices">Цены</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <a class="tel" href="tel:+70000000000">+7 000 000-00-00</a>
+  </div>
+</header>
+
+<!-- ===== БЛОК: первый экран ===== -->
+<section class="hero">
+  <div class="wrap grid">
+    <div>
+      <div class="badge">🔧 Свободные места на ближайшие 2 дня: <b>3</b></div>
+      <h1>Отремонтируем машину за один день — со сметой, которая не вырастет</h1>
+      <p class="lead">Называем точную сумму до начала работ и фиксируем её письменно. Диагностика бесплатно, если ремонтируетесь у нас. Гарантия 12 месяцев на работы и детали.</p>
+      <div class="cta-row">
+        <a href="#form" class="btn">Записаться на диагностику</a>
+        <a href="#prices" class="btn btn--ghost">Посмотреть цены</a>
+      </div>
+      <div class="trust">
+        <div><b>12 лет</b><span>работаем в районе</span></div>
+        <div><b>9 400</b><span>машин обслужили</span></div>
+        <div><b>4,8</b><span>средняя оценка</span></div>
+        <div><b>12 мес.</b><span>гарантия</span></div>
+      </div>
+    </div>
+
+    <div class="card" id="form">
+      <form id="lead-form" novalidate>
+        <h3>Запись на диагностику</h3>
+        <p class="note">Перезвоним в течение 15 минут и назовём точное время</p>
+
+        <div class="field" id="f-name">
+          <label for="name">Как к вам обращаться</label>
+          <input id="name" name="name" type="text" placeholder="Иван" autocomplete="name">
+          <div class="err">Напишите имя</div>
+        </div>
+
+        <div class="field" id="f-phone">
+          <label for="phone">Телефон</label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+          <div class="err">Похоже, в номере не хватает цифр</div>
+        </div>
+
+        <div class="field">
+          <label for="car">Машина и что беспокоит <span style="color:var(--ink3);font-weight:600">(необязательно)</span></label>
+          <input id="car" name="car" type="text" placeholder="Октавия 2016, стучит спереди">
+        </div>
+
+        <label class="agree">
+          <input type="checkbox" id="agree" checked>
+          <span>Согласен на обработку персональных данных и <a href="#privacy">политику конфиденциальности</a></span>
+        </label>
+
+        <button type="submit" class="btn btn--wide" id="submit-btn">Записаться</button>
+      </form>
+
+      <div class="thanks" id="thanks">
+        <div class="ic">✅</div>
+        <h3>Заявка принята</h3>
+        <p style="color:var(--ink2);margin:0">Перезвоним в течение 15 минут. Если сейчас ночь — утром, с 9:00.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== БЛОК: боли ===== -->
+<section>
+  <div class="wrap">
+    <h2>Почему к нам едут после других сервисов</h2>
+    <p class="lead">Четыре вещи, которые бесят в автосервисах. Мы убрали каждую.</p>
+    <div class="pains">
+      <div class="pain">
+        <div class="q">«Сказали 15 тысяч, отдал 40»</div>
+        <div class="a">Смета фиксируется письменно до начала работ. Всё, что нашли сверх — только с вашего согласия</div>
+      </div>
+      <div class="pain">
+        <div class="q">«Машина стоит вторую неделю»</div>
+        <div class="a">80% работ делаем за один день. Если дольше — говорим сразу, до того как вы оставили ключи</div>
+      </div>
+      <div class="pain">
+        <div class="q">«Поменяли то, что не ломалось»</div>
+        <div class="a">Отдаём все снятые детали и показываем фото до и после. Ничего не меняем без звонка</div>
+      </div>
+      <div class="pain">
+        <div class="q">«Через месяц всё повторилось»</div>
+        <div class="a">Гарантия 12 месяцев на работы и на установленные у нас детали. Переделываем бесплатно</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== БЛОК: как работаем ===== -->
+<section id="how" style="background:var(--bg2)">
+  <div class="wrap">
+    <h2>Как проходит ремонт</h2>
+    <p class="lead">Без сюрпризов и без «ну вы приезжайте, там посмотрим»</p>
+    <div class="steps">
+      <div class="step">
+        <h3>Записываетесь</h3>
+        <p>Перезваниваем за 15 минут, подбираем удобное время. Ждать в очереди не нужно</p>
+      </div>
+      <div class="step">
+        <h3>Диагностика 40 минут</h3>
+        <p>Показываем на подъёмнике, что именно не так. Бесплатно, если ремонтируетесь у нас</p>
+      </div>
+      <div class="step">
+        <h3>Смета и ваше «да»</h3>
+        <p>Присылаем список работ с ценами. Работы начинаются только после подтверждения</p>
+      </div>
+      <div class="step">
+        <h3>Ремонт и выдача</h3>
+        <p>Отдаём машину, старые детали и гарантийный талон на 12 месяцев</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== БЛОК: цены ===== -->
+<section id="prices">
+  <div class="wrap">
+    <h2>Цены</h2>
+    <p class="lead">Это реальные суммы, а не «от 990 ₽». Точная — после диагностики</p>
+    <div class="prices">
+      <div class="price">
+        <h3>Диагностика</h3>
+        <div class="v">1 500 <small>₽</small></div>
+        <ul>
+          <li>Подвеска, двигатель, тормоза</li>
+          <li>Компьютерная диагностика</li>
+          <li>Письменное заключение</li>
+          <li><b>Бесплатно</b> при ремонте у нас</li>
+        </ul>
+        <a href="#form" class="btn btn--ghost">Записаться</a>
+      </div>
+      <div class="price hot">
+        <h3>ТО под ключ</h3>
+        <div class="v">от 6 900 <small>₽</small></div>
+        <ul>
+          <li>Масло, 4 фильтра, работа</li>
+          <li>Проверка 30 узлов</li>
+          <li>Отметка в сервисной книжке</li>
+          <li>За 2 часа, можно подождать</li>
+        </ul>
+        <a href="#form" class="btn">Записаться на ТО</a>
+      </div>
+      <div class="price">
+        <h3>Ремонт подвески</h3>
+        <div class="v">от 4 500 <small>₽</small></div>
+        <ul>
+          <li>Замена стоек, рычагов, сайлентблоков</li>
+          <li>Развал-схождение со скидкой 50%</li>
+          <li>Чаще всего — за один день</li>
+          <li>Гарантия 12 месяцев</li>
+        </ul>
+        <a href="#form" class="btn btn--ghost">Записаться</a>
+      </div>
+    </div>
+    <p class="pricenote">Цены указаны за работу. Стоимость деталей согласовываем отдельно — можно ставить свои.</p>
+  </div>
+</section>
+
+<!-- ===== БЛОК: отзывы ===== -->
+<section id="reviews" style="background:var(--bg2)">
+  <div class="wrap">
+    <h2>Отзывы</h2>
+    <p class="lead">Средняя оценка 4,8 из 5 — по 340 отзывам на картах</p>
+    <div class="revs">
+      <div class="rev">
+        <div class="stars">★★★★★</div>
+        <p>Приехал со стуком в подвеске, до этого в двух сервисах развели руками. Здесь нашли за 20 минут, показали на подъёмнике. Сделали в тот же день, сумма совпала со сметой до рубля.</p>
+        <p class="who"><b>Алексей</b>Skoda Octavia, ремонт подвески</p>
+      </div>
+      <div class="rev">
+        <div class="stars">★★★★★</div>
+        <p>Первый сервис, где не пытались продать «ещё вот это и это». Прямо сказали, что колодок хватит ещё на сезон. ТО сделали за полтора часа, пока пил кофе.</p>
+        <p class="who"><b>Марина</b>Kia Rio, ТО</p>
+      </div>
+      <div class="rev">
+        <div class="stars">★★★★☆</div>
+        <p>Деталь ждали три дня — но предупредили сразу и дали машину на подмену. Работой доволен, по гарантии потом подтянули без вопросов и бесплатно.</p>
+        <p class="who"><b>Дмитрий</b>Ford Focus, замена сцепления</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== БЛОК: FAQ ===== -->
+<section id="faq">
+  <div class="wrap" style="max-width:820px">
+    <h2>Частые вопросы</h2>
+    <div class="faq">
+      <details open>
+        <summary>Почему у вас дороже, чем в гаражном сервисе?</summary>
+        <div class="ans">Потому что в цену входит гарантия 12 месяцев, официальные документы и подъёмник вместо ямы. Если работа окажется некачественной — переделаем бесплатно, и это не обещание на словах, а гарантийный талон. В гараже такой возможности не будет.</div>
+      </details>
+      <details>
+        <summary>А если после ремонта проблема вернётся?</summary>
+        <div class="ans">Приезжайте — устраним бесплатно в рамках гарантии. Если выяснится, что причина в другом узле, скажем прямо и посчитаем отдельно, но только после вашего согласия.</div>
+      </details>
+      <details>
+        <summary>Можно привезти свои детали?</summary>
+        <div class="ans">Да. Гарантия в этом случае распространяется на работу; на саму деталь гарантию даёт её продавец. Подскажем, что брать, чтобы не купить подделку.</div>
+      </details>
+      <details>
+        <summary>Сколько занимает диагностика и правда ли она бесплатная?</summary>
+        <div class="ans">40 минут. Стоит 1 500 ₽, но если вы ремонтируетесь у нас — эта сумма вычитается из счёта, то есть диагностика выходит бесплатной. Если решите ремонтироваться в другом месте — платите 1 500 ₽ и забираете письменное заключение.</div>
+      </details>
+      <details>
+        <summary>Работаете с юрлицами и таксопарками?</summary>
+        <div class="ans">Да, работаем по договору и безналу, закрывающие документы предоставляем. Для парков от 5 машин — отдельные условия, обсудим по телефону.</div>
+      </details>
+      <details>
+        <summary>Что если смета вырастет по ходу работ?</summary>
+        <div class="ans">Не вырастет без вашего согласия. Если в процессе выявляется что-то ещё — мы останавливаемся, звоним, показываем фото и ждём решения. Молча делать и ставить перед фактом — не наш метод.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== БЛОК: финальная форма ===== -->
+<section class="final">
+  <div class="wrap grid">
+    <div>
+      <h2>Запишитесь на диагностику</h2>
+      <p class="lead">Перезвоним в течение 15 минут, назовём свободное время и ответим на вопросы. Ни к чему не обязывает.</p>
+      <p class="lead" style="margin:0">Или просто позвоните: <a href="tel:+70000000000" style="color:#fff;font-weight:800">+7 000 000-00-00</a></p>
+    </div>
+    <div class="card">
+      <form id="lead-form-2" novalidate>
+        <h3>Оставьте номер</h3>
+        <p class="note">Перезвоним за 15 минут в рабочее время</p>
+        <div class="field" id="f-name-2">
+          <label for="name2">Имя</label>
+          <input id="name2" name="name" type="text" placeholder="Иван" autocomplete="name">
+          <div class="err">Напишите имя</div>
+        </div>
+        <div class="field" id="f-phone-2">
+          <label for="phone2">Телефон</label>
+          <input id="phone2" name="phone" type="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+          <div class="err">Похоже, в номере не хватает цифр</div>
+        </div>
+        <label class="agree">
+          <input type="checkbox" checked>
+          <span>Согласен на обработку персональных данных</span>
+        </label>
+        <button type="submit" class="btn btn--wide">Записаться</button>
+      </form>
+      <div class="thanks" id="thanks-2">
+        <div class="ic">✅</div>
+        <h3>Заявка принята</h3>
+        <p style="color:var(--ink2);margin:0">Перезвоним в течение 15 минут.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:10px">Автосервис <span>«Пример»</span></div>
+        <p style="margin:0">Ремонт и обслуживание легковых автомобилей</p>
+      </div>
+      <div>
+        <p style="margin:0 0 6px"><a href="tel:+70000000000">+7 000 000-00-00</a></p>
+        <p style="margin:0 0 6px"><a href="mailto:mail@example.ru">mail@example.ru</a></p>
+        <p style="margin:0">Ежедневно 9:00–21:00</p>
+      </div>
+      <div>
+        <p style="margin:0 0 6px">г. Москва, ул. Примерная, 1</p>
+        <p style="margin:0"><a href="#">Открыть на карте</a></p>
+      </div>
+      <div>
+        <p style="margin:0 0 6px"><a href="#privacy">Политика конфиденциальности</a></p>
+        <p style="margin:0"><a href="#form">Записаться</a></p>
+      </div>
+    </div>
+    <div class="small" id="privacy">
+      ИП Пример П.П. · ИНН 000000000000 · ОГРНИП 000000000000000<br>
+      Демонстрационный лендинг. Все данные, отзывы и цены — вымышленные, сайт собран как образец работы.
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-cta"><a href="#form" class="btn btn--wide">Записаться на диагностику</a></div>
+
+<script>
+/* ==== маска телефона ==== */
+function maskPhone(el){
+  el.addEventListener('input', function(){
+    var d = el.value.replace(/\D/g,'');
+    if(d.startsWith('8')) d = '7' + d.slice(1);
+    if(!d.startsWith('7')) d = '7' + d;
+    d = d.slice(0,11);
+    var out = '+7';
+    if(d.length > 1) out += ' (' + d.slice(1,4);
+    if(d.length >= 4) out += ') ' + d.slice(4,7);
+    if(d.length >= 7) out += '-' + d.slice(7,9);
+    if(d.length >= 9) out += '-' + d.slice(9,11);
+    el.value = out;
+  });
+  el.addEventListener('focus', function(){ if(!el.value) el.value = '+7 ('; });
+}
+
+/* ==== отправка ==== */
+function wire(formId, thanksId, nameWrapId, phoneWrapId){
+  var form = document.getElementById(formId);
+  if(!form) return;
+  var phone = form.querySelector('input[type=tel]');
+  maskPhone(phone);
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var nameEl = form.querySelector('input[name=name]');
+    var okName = nameEl.value.trim().length >= 2;
+    var digits = phone.value.replace(/\D/g,'');
+    var okPhone = digits.length === 11;
+
+    document.getElementById(nameWrapId).classList.toggle('bad', !okName);
+    document.getElementById(phoneWrapId).classList.toggle('bad', !okPhone);
+    if(!okName || !okPhone) return;
+
+    var btn = form.querySelector('button[type=submit]');
+    btn.disabled = true;
+    btn.textContent = 'Отправляем…';
+
+    var payload = {
+      name: nameEl.value.trim(),
+      phone: '+' + digits,
+      comment: (form.querySelector('#car') ? form.querySelector('#car').value.trim() : ''),
+      page: location.href,
+      source: document.referrer || 'прямой заход'
+    };
+
+    /* ---- БОЕВОЙ РЕЖИМ: раскомментировать и подставить адрес приёмника заявок
+    fetch('https://ТВОЙ-ПРИЁМНИК/lead', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    }).then(done).catch(function(){ btn.disabled=false; btn.textContent='Записаться';
+      alert('Не удалось отправить. Позвоните, пожалуйста, по телефону.'); });
+    return; */
+
+    console.log('Заявка (демо-режим):', payload);
+    setTimeout(done, 700);
+
+    function done(){
+      form.style.display = 'none';
+      document.getElementById(thanksId).style.display = 'block';
+      /* цель аналитики:
+         if(window.ym) ym(XXXXXX,'reachGoal','lead');
+         if(window.gtag) gtag('event','generate_lead'); */
+    }
+  });
+}
+wire('lead-form','thanks','f-name','f-phone');
+wire('lead-form-2','thanks-2','f-name-2','f-phone-2');
+</script>
+
+<!-- Аналитика: сюда вставляется код Яндекс.Метрики или Google Analytics -->
+
+</body>
+</html>
